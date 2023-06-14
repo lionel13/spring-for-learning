@@ -1,7 +1,10 @@
 package fr.varex13;
 
+import static fr.varex13.Student.studentBuilder;
+
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import fr.varex13.port.StudentRepository;
 import io.cucumber.java.Before;
@@ -26,6 +29,6 @@ public class Studentdefs {
 
     @DataTableType
     public Student studentEntry(final Map<String, String> entry) {
-        return new Student(entry.get("id"), entry.get("firstName"), entry.get("lastName"));
+        return studentBuilder().id(UUID.fromString(entry.get("id"))).firstName(entry.get("firstName")).lastName(entry.get("lastName")).build();
     }
 }

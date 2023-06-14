@@ -1,7 +1,10 @@
 package fr.varex13;
 
+import static fr.varex13.Course.courseBuilder;
+
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import fr.varex13.port.CourseRepository;
 import io.cucumber.java.Before;
@@ -26,7 +29,7 @@ public class CoursesDefs {
 
     @DataTableType
     public Course courseEntry(final Map<String, String> entry) {
-        return new Course(entry.get("id"), entry.get("label"));
+        return courseBuilder().id(UUID.fromString(entry.get("id"))).label(entry.get("label")).build();
     }
 
 }
