@@ -13,7 +13,7 @@ import org.junit.platform.suite.api.Suite;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("fr/varex13")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.varex13")
-class RunCucumberTest {
+class RunCucumberUTTest {
     @Test
     void makeSonarHappy() {
         assertTrue(true);

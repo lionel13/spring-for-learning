@@ -19,7 +19,7 @@ public class BookCourse {
     }
 
     public void handle(final Course course, final String duration) {
-        Student student = authenticationGateway.currentStudent().orElseThrow(() -> new RuntimeException("Non authentifié"));
+        Student student = authenticationGateway.currentStudent().orElseThrow(AuthentificationRuntimeException::new);
         chargeCustomer(student, duration);
         applyBooking(new Booking(student, course, duration));
     }

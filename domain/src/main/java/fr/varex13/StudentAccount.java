@@ -1,27 +1,25 @@
 package fr.varex13;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class StudentAccount {
-    private final String id;
+    private final Student student;
     private BigDecimal balance;
 
-    public StudentAccount(final String id, final BigDecimal balance) {
-        this.id = id;
+    public StudentAccount(final Student student, final BigDecimal balance) {
+        this.student = student;
         this.balance = balance;
     }
 
-    public String getId() {
-        return id;
+    public Student getStudent() {
+        return student;
     }
 
     public void charge(final String duration) {
-        final BigDecimal subtract = balance.subtract(BigDecimal.valueOf(Long.parseLong(duration)));
-        if (subtract.compareTo(BigDecimal.ZERO) < 0) {
-            throw new RuntimeException("Solde insuffisant");
+        if (balance.compareTo(BigDecimal.valueOf(Long.parseLong(duration))) < 0) {
+            throw new SoldeInsuffisantRuntimeExeption();
         }
-        balance = subtract;
+        balance = balance.subtract(BigDecimal.valueOf(Long.parseLong(duration)));
     }
 
     @Override
@@ -31,14 +29,14 @@ public class StudentAccount {
 
         StudentAccount that = (StudentAccount) o;
 
-        if (!Objects.equals(id, that.id)) return false;
-        return Objects.equals(balance, that.balance);
+        if (!student.equals(that.student)) return false;
+        return balance.equals(that.balance);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (balance != null ? balance.hashCode() : 0);
+        int result = student.hashCode();
+        result = 31 * result + balance.hashCode();
         return result;
     }
 }
