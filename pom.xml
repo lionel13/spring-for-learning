@@ -23,6 +23,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
+
+        <skipUTs>false</skipUTs>
+        <maven-surefire-plugin.include>**/*UTTest.java</maven-surefire-plugin.include>
+        <skipITs>false</skipITs>
+        <maven-failsafe-plugin.include>**/*ITTest.java</maven-failsafe-plugin.include>
     </properties>
 
     <build>
@@ -36,6 +43,37 @@
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <skip>${skipUTs}</skip>
+                        <includes>
+                            <include>${maven-surefire-plugin.include}</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skip>${skipITs}</skip>
+                        <includes>
+                            <include>${maven-failsafe-plugin.include}</include>
+                        </includes>
                     </configuration>
                 </plugin>
             </plugins>

@@ -82,7 +82,7 @@ public class BookingSteps {
         assertThat(bookingAttempt.excepceptionMessage, is("Non authentifié"));
     }
 
-    private class BookingAttempt {
+    private static class BookingAttempt {
         private Student student;
         private Course course;
         private String duration;

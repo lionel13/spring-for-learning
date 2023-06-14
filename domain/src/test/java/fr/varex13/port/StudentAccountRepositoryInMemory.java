@@ -18,7 +18,7 @@ public class StudentAccountRepositoryInMemory implements StudentAccountRepositor
 
     @Override
     public Optional<StudentAccount> byId(String id) {
-        return studentAccounts.stream().filter(c -> c.getId().equals(id)).findFirst();
+        return studentAccounts.stream().filter(c -> c.getStudent().getId().equals(id)).findFirst();
     }
 
     @Override

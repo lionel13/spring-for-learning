@@ -16,7 +16,6 @@
         <cucumber-bom.version>7.12.1</cucumber-bom.version>
         <junit-bom.version>5.9.3</junit-bom.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -88,14 +87,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <properties>
-                        <configurationParameters>
-                            cucumber.junit-platform.naming-strategy=long
-                        </configurationParameters>
-                    </properties>
-                </configuration>
             </plugin>
         </plugins>
     </build>

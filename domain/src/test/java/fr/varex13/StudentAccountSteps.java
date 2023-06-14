@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import fr.varex13.port.AuthenticationGateway;
 import fr.varex13.port.StudentAccountRepository;
 import io.cucumber.java.Before;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,7 +26,7 @@ public class StudentAccountSteps {
     @And("le solde de mon compte est de {string} heures de cours")
     public void leSoldeDeMonCompteEstDeCours(final String balance) {
         authenticationGateway.currentStudent().ifPresent(student -> {
-            final StudentAccount expectedStudentAccount = new StudentAccount(student.getId(), BigDecimal.valueOf(Long.parseLong(balance)));
+            final StudentAccount expectedStudentAccount = new StudentAccount(student, BigDecimal.valueOf(Long.parseLong(balance)));
             if (shouldInitStudentAccount(studentAccountRepository)) {
                 studentAccountRepository.add(expectedStudentAccount);
             } else {
