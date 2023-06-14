@@ -1,5 +1,9 @@
 package fr.varex13.usecases;
 
+import static fr.varex13.Booking.bookingBuilder;
+
+import java.math.BigInteger;
+
 import fr.varex13.Booking;
 import fr.varex13.Course;
 import fr.varex13.Student;
@@ -18,17 +22,17 @@ public class BookCourse {
         this.authenticationGateway = authenticationGateway;
     }
 
-    public void handle(final Course course, final String duration) {
-        Student student = authenticationGateway.currentStudent().orElseThrow(AuthentificationRuntimeException::new);
+    public void handle(final Course course, final BigInteger duration) {
+        final Student student = authenticationGateway.currentStudent().orElseThrow(AuthentificationRuntimeException::new);
         chargeCustomer(student, duration);
-        applyBooking(new Booking(student, course, duration));
+        applyBooking(bookingBuilder().student(student).course(course).duration(duration).build());
     }
 
     private void applyBooking(final Booking booking) {
         bookingRepository.add(booking);
     }
 
-    private void chargeCustomer(final Student student, final String duration) {
+    private void chargeCustomer(final Student student, final BigInteger duration) {
         studentAccountRepository.byId(student.getId()).ifPresent(studentAccount -> studentAccount.charge(duration));
     }
 }

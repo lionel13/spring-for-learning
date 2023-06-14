@@ -1,12 +1,12 @@
 package fr.varex13;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class StudentAccount {
     private final Student student;
-    private BigDecimal balance;
+    private BigInteger balance;
 
-    public StudentAccount(final Student student, final BigDecimal balance) {
+    public StudentAccount(final Student student, final BigInteger balance) {
         this.student = student;
         this.balance = balance;
     }
@@ -15,11 +15,11 @@ public class StudentAccount {
         return student;
     }
 
-    public void charge(final String duration) {
-        if (balance.compareTo(BigDecimal.valueOf(Long.parseLong(duration))) < 0) {
+    public void charge(final BigInteger duration) {
+        if (balance.compareTo(duration) < 0) {
             throw new SoldeInsuffisantRuntimeExeption();
         }
-        balance = balance.subtract(BigDecimal.valueOf(Long.parseLong(duration)));
+        balance = balance.subtract(duration);
     }
 
     @Override

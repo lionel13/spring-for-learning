@@ -3,6 +3,7 @@ package fr.varex13.port;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.varex13.StudentAccount;
 
@@ -17,7 +18,7 @@ public class StudentAccountRepositoryInMemory implements StudentAccountRepositor
     }
 
     @Override
-    public Optional<StudentAccount> byId(String id) {
+    public Optional<StudentAccount> byId(final UUID id) {
         return studentAccounts.stream().filter(c -> c.getStudent().getId().equals(id)).findFirst();
     }
 

@@ -17,10 +17,10 @@ Feature: Tout les élèves - Réserver un cours
 
   Scenario Outline: solde suffisant
     And je suis authentifié en tant que "<prénom_client>"
-    And le solde de mon compte est de "<solde_avant>" heures de cours
-    When je tente de réserver le cours "<label_cours>" pour "<nombre_heures>"
+    And le solde de mon compte est de <solde_avant> heures de cours
+    When je tente de réserver le cours "<label_cours>" pour <nombre_heures>
     Then la réservation est effective
-    And le solde de mon compte est de "<solde_après>" heures de cours
+    And le solde de mon compte est de <solde_après> heures de cours
     Examples:
       | prénom_client | solde_avant | solde_après | label_cours | nombre_heures |
       | Céline        | 10          | 9           | cours 1     | 1             |
@@ -31,11 +31,11 @@ Feature: Tout les élèves - Réserver un cours
 #
   Scenario Outline: solde insuffisant
     Given je suis authentifié en tant que "<prénom_client>"
-    And le solde de mon compte est de "<solde_avant>" heures de cours
-    When je tente de réserver le cours "<label_cours>" pour "<nombre_heures>"
+    And le solde de mon compte est de <solde_avant> heures de cours
+    When je tente de réserver le cours "<label_cours>" pour <nombre_heures>
     Then la réservation n'est pas effective
     And et une alerte pour insuffisance de solde se lève
-    And le solde de mon compte est de "<solde_après>" heures de cours
+    And le solde de mon compte est de <solde_après> heures de cours
     Examples:
       | prénom_client | solde_avant | solde_après | label_cours | nombre_heures |
       | Céline        | 10          | 10          | cours 1     | 11            |
@@ -47,7 +47,7 @@ Feature: Tout les élèves - Réserver un cours
 
   Scenario Outline: Je ne suis pas authentifié
     Given je ne suis pas authentifié
-    When je tente de réserver le cours "<label_cours>" pour "<nombre_heures>"
+    When je tente de réserver le cours "<label_cours>" pour <nombre_heures>
     Then la réservation n'est pas effective
     And et une alerte pour identification du client impossible se lève
     Examples:

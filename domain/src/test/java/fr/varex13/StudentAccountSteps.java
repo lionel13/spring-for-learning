@@ -3,7 +3,7 @@ package fr.varex13;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import fr.varex13.port.AuthenticationGateway;
 import fr.varex13.port.StudentAccountRepository;
@@ -23,10 +23,10 @@ public class StudentAccountSteps {
         studentAccountRepository.all().clear();
     }
 
-    @And("le solde de mon compte est de {string} heures de cours")
-    public void leSoldeDeMonCompteEstDeCours(final String balance) {
+    @And("le solde de mon compte est de {biginteger} heures de cours")
+    public void leSoldeDeMonCompteEstDeCours(final BigInteger balance) {
         authenticationGateway.currentStudent().ifPresent(student -> {
-            final StudentAccount expectedStudentAccount = new StudentAccount(student, BigDecimal.valueOf(Long.parseLong(balance)));
+            final StudentAccount expectedStudentAccount = new StudentAccount(student, balance);
             if (shouldInitStudentAccount(studentAccountRepository)) {
                 studentAccountRepository.add(expectedStudentAccount);
             } else {

@@ -1,8 +1,10 @@
 package fr.varex13;
 
+import static fr.varex13.Booking.bookingBuilder;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import java.math.BigInteger;
 import java.util.Set;
 
 import fr.varex13.port.AuthenticationGateway;
@@ -34,8 +36,8 @@ public class BookingSteps {
 
     BookingAttempt bookingAttempt = new BookingAttempt();
 
-    @When("je tente de réserver le cours {string} pour {string}")
-    public void jeTenteDeRéserverLeCours(final String label, final String duration) {
+    @When("je tente de réserver le cours {string} pour {biginteger}")
+    public void jeTenteDeRéserverLeCours(final String label, final BigInteger duration) {
         try {
             final BookCourse bookCourse = new BookCourse(studentAccountRepository, bookingRepository, authenticationGateway);
 
@@ -62,7 +64,7 @@ public class BookingSteps {
         final Set<Booking> bookings = bookingRepository.all();
         assertThat(bookings.size(), is(1));
         final Booking booking = bookings.iterator().next();
-        assertThat(new Booking(bookingAttempt.student, bookingAttempt.course, bookingAttempt.duration), is(booking));
+        assertThat(bookingBuilder().student(bookingAttempt.student).course(bookingAttempt.course).duration(bookingAttempt.duration).build(), is(booking));
 
     }
 
@@ -85,7 +87,7 @@ public class BookingSteps {
     private static class BookingAttempt {
         private Student student;
         private Course course;
-        private String duration;
+        private BigInteger duration;
 
         private String excepceptionMessage;
 
@@ -97,7 +99,7 @@ public class BookingSteps {
             this.course = course;
         }
 
-        public void setDuration(final String duration) {
+        public void setDuration(final BigInteger duration) {
             this.duration = duration;
         }
 
