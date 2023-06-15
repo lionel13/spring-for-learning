@@ -1,8 +1,10 @@
 package fr.varex13;
 
+import static java.util.Objects.isNull;
+
 import java.util.UUID;
 
-public class Student {
+public final class Student {
     private final UUID id;
     private final String firstName;
     private final String lastName;
@@ -50,16 +52,47 @@ public class Student {
         }
 
         public Student build() {
-            if (id == null) {
+            if (isNull(id)) {
                 throw new IllegalArgumentException("id ne doit pas être null");
             }
-            if (firstName == null) {
+            if (isNull(firstName)) {
                 throw new IllegalArgumentException("firstName ne doit pas être null");
             }
-            if (lastName == null) {
+            if (isNull(lastName)) {
                 throw new IllegalArgumentException("lastName ne doit pas être null");
+            }
+            if (firstName.length() < 1) {
+                throw new IllegalArgumentException("firstName doit être au moins de longueur 1");
+            }
+            if (lastName.length() < 1) {
+                throw new IllegalArgumentException("lastName doit être au moins de longueur 1");
             }
             return new Student(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (!id.equals(student.id)) return false;
+        if (!firstName.equals(student.firstName)) return false;
+        return lastName.equals(student.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + '}';
     }
 }
