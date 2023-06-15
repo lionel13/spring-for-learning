@@ -1,8 +1,10 @@
 package fr.varex13;
 
+import static java.util.Objects.isNull;
+
 import java.math.BigInteger;
 
-public class Booking {
+public final class Booking {
     private final Student student;
     private final Course course;
     private final BigInteger duration;
@@ -50,13 +52,13 @@ public class Booking {
         }
 
         public Booking build() {
-            if (student == null) {
+            if (isNull(student)) {
                 throw new IllegalArgumentException("student ne doit pas être null");
             }
-            if (course == null) {
+            if (isNull(course)) {
                 throw new IllegalArgumentException("course ne doit pas être null");
             }
-            if (duration == null) {
+            if (isNull(duration)) {
                 throw new IllegalArgumentException("duration ne doit pas être null");
             }
             return new Booking(this);

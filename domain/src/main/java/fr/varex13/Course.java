@@ -1,8 +1,9 @@
 package fr.varex13;
 
+import java.util.Objects;
 import java.util.UUID;
 
-public class Course {
+public final class Course {
     private final UUID id;
     private final String label;
 
@@ -38,10 +39,10 @@ public class Course {
         }
 
         public Course build() {
-            if (id == null) {
+            if (Objects.isNull(id)) {
                 throw new IllegalArgumentException("id ne doit pas être null");
             }
-            if (label == null) {
+            if (Objects.isNull(label)) {
                 throw new IllegalArgumentException("label ne doit pas être null");
             }
             return new Course(this);
