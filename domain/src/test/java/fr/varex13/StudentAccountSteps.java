@@ -30,7 +30,7 @@ public class StudentAccountSteps {
             if (shouldInitStudentAccount(studentAccountRepository)) {
                 studentAccountRepository.add(expectedStudentAccount);
             } else {
-                assertThat(studentAccountRepository.byId(student.getId()).get(), is(expectedStudentAccount));
+                assertThat(studentAccountRepository.byId(student.getId()).get().getBalance(), is(expectedStudentAccount.getBalance()));
             }
         });
     }

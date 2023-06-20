@@ -28,7 +28,7 @@ Feature: Tout les élèves - Réserver un cours
       | Manon         | 3           | 1           | cours 2     | 2             |
       | Delphine      | 1           | 0           | cours 2     | 1             |
       | Delphine      | 4           | 1           | cours 2     | 3             |
-#
+
   Scenario Outline: solde insuffisant
     Given je suis authentifié en tant que "<prénom_client>"
     And le solde de mon compte est de <solde_avant> heures de cours

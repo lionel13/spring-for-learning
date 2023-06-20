@@ -1,25 +1,50 @@
 package fr.varex13;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.math.BigInteger.ZERO;
 
 public class StudentAccount {
     private final Student student;
-    private BigInteger balance;
+    private final List<BigInteger> credits = new ArrayList<>();
+    private final List<BigInteger> debits = new ArrayList<>();
 
     public StudentAccount(final Student student, final BigInteger balance) {
         this.student = student;
-        this.balance = balance;
+        addCredit(balance);
     }
 
     public Student getStudent() {
         return student;
     }
 
+    public void addCredit(final BigInteger credit) {
+        credits.add(credit);
+    }
+
+    public void addDebit(final BigInteger credit) {
+        debits.add(credit);
+    }
+
+    public BigInteger totalCredits() {
+        return credits.stream().reduce(ZERO, BigInteger::add);
+    }
+
+    public BigInteger totalDebits() {
+        return debits.stream().reduce(ZERO, BigInteger::add);
+    }
+
+    public BigInteger getBalance() {
+        return totalCredits().subtract(totalDebits());
+    }
+
     public void charge(final BigInteger duration) {
-        if (balance.compareTo(duration) < 0) {
+        if (getBalance().compareTo(duration) < 0) {
             throw new SoldeInsuffisantRuntimeExeption();
         }
-        balance = balance.subtract(duration);
+        addDebit(duration);
     }
 
     @Override
@@ -30,13 +55,15 @@ public class StudentAccount {
         StudentAccount that = (StudentAccount) o;
 
         if (!student.equals(that.student)) return false;
-        return balance.equals(that.balance);
+        if (!credits.equals(that.credits)) return false;
+        return debits.equals(that.debits);
     }
 
     @Override
     public int hashCode() {
         int result = student.hashCode();
-        result = 31 * result + balance.hashCode();
+        result = 31 * result + credits.hashCode();
+        result = 31 * result + debits.hashCode();
         return result;
     }
 }
