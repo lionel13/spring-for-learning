@@ -24,7 +24,7 @@ public final class Course {
         return label;
     }
 
-    public static class CourseBuilder {
+    public static final class CourseBuilder {
         private UUID id;
         private String label;
 
@@ -47,5 +47,31 @@ public final class Course {
             }
             return new Course(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Course course = (Course) o;
+
+        if (!id.equals(course.id)) return false;
+        return label.equals(course.label);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + label.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                '}';
     }
 }

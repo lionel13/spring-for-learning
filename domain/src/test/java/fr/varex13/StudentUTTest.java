@@ -21,7 +21,7 @@ class StudentUTTest {
         assertThat(student.getId(), is(UUID.fromString("4fc3f66c-8e76-4b53-9889-c78256836b0d")));
         assertThat(student.getFirstName(), is("myFirstName"));
         assertThat(student.getLastName(), is("myLastName"));
-        assertThat(student.toString(), is("Student{" + "id=" + UUID.fromString("4fc3f66c-8e76-4b53-9889-c78256836b0d") + ", firstName" + "='myFirstName'" + ", lastName='myLastName'}"));
+        assertThat(student.toString(), is("Student{" + "id=" + UUID.fromString("4fc3f66c-8e76-4b53-9889-c78256836b0d") + ", firstName='myFirstName', lastName='myLastName'}"));
 
     }
 
