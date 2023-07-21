@@ -1,18 +1,21 @@
 package fr.varex13.configuration;
 
-import fr.varex13.port.AuthenticationGateway;
-import fr.varex13.port.AuthenticationGatewayInMemory;
-import fr.varex13.port.BookingRepository;
-import fr.varex13.port.BookingRepositoryInMemory;
-import fr.varex13.port.CourseRepository;
-import fr.varex13.port.CourseRepositoryInMemory;
-import fr.varex13.port.StudentAccountRepository;
-import fr.varex13.port.StudentAccountRepositoryInMemory;
-import fr.varex13.port.StudentRepository;
-import fr.varex13.port.StudentRepositoryInMemory;
+import fr.varex13.inputport.AuthenticationGateway;
+import fr.varex13.inputport.AuthenticationGatewayInMemory;
+import fr.varex13.outputport.*;
+import fr.varex13.inputport.BookService;
+import fr.varex13.inputport.BookServiceImpl;
 import org.springframework.context.annotation.Bean;
 
 public class TestConfig {
+
+    @Bean
+    public BookService bookService(final StudentAccountRepository studentAccountRepository,
+                                   final BookingRepository bookingRepository,
+                                   final AuthenticationGateway authenticationGateway
+    ) {
+        return new BookServiceImpl(studentAccountRepository, bookingRepository, authenticationGateway);
+    }
 
     @Bean
     public StudentRepository studentRepository() {
@@ -24,14 +27,27 @@ public class TestConfig {
         return new CourseRepositoryInMemory();
     }
 
-    @Bean
-    public StudentAccountRepository studentAccountRepository() {
-        return new StudentAccountRepositoryInMemory();
-    }
 
     @Bean
     public BookingRepository bookingRepository() {
         return new BookingRepositoryInMemory();
+    }
+
+    @Bean
+    public AccountCreditRepository accountCreditRepository() {
+        return new AccountCreditRepositoryInMemory();
+    }
+
+    @Bean
+    public AccountDebitRepository accountDebitRepository() {
+        return new AccountDebitRepositoryInMemory();
+    }
+
+    @Bean
+    public StudentAccountRepository studentAccountRepository(
+            final AccountCreditRepository accountCreditRepository,
+            final AccountDebitRepository accountDebitRepository) {
+        return new StudentAccountRepositoryInMemory(accountCreditRepository, accountDebitRepository);
     }
 
     @Bean

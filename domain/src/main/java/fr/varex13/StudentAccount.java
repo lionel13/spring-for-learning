@@ -1,69 +1,53 @@
 package fr.varex13;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
-import static java.math.BigInteger.ZERO;
-
-public class StudentAccount {
+public final class StudentAccount {
     private final Student student;
-    private final List<BigInteger> credits = new ArrayList<>();
-    private final List<BigInteger> debits = new ArrayList<>();
+    private final Integer balance;
 
-    public StudentAccount(final Student student, final BigInteger balance) {
-        this.student = student;
-        addCredit(balance);
+
+    private StudentAccount(final StudentAccountBuilder studentAccountBuilder) {
+        this.student = studentAccountBuilder.student;
+        this.balance = studentAccountBuilder.balance;
+    }
+
+    public static StudentAccountBuilder studentAccountBuilder() {
+        return new StudentAccountBuilder();
     }
 
     public Student getStudent() {
         return student;
     }
 
-    public void addCredit(final BigInteger credit) {
-        credits.add(credit);
+    public Integer getBalance() {
+        return balance;
     }
 
-    public void addDebit(final BigInteger credit) {
-        debits.add(credit);
-    }
+    public static final class StudentAccountBuilder {
+        private Student student;
 
-    public BigInteger totalCredits() {
-        return credits.stream().reduce(ZERO, BigInteger::add);
-    }
+        private Integer balance;
 
-    public BigInteger totalDebits() {
-        return debits.stream().reduce(ZERO, BigInteger::add);
-    }
-
-    public BigInteger getBalance() {
-        return totalCredits().subtract(totalDebits());
-    }
-
-    public void charge(final BigInteger duration) {
-        if (getBalance().compareTo(duration) < 0) {
-            throw new SoldeInsuffisantRuntimeExeption();
+        public StudentAccountBuilder student(final Student student) {
+            this.student = student;
+            return this;
         }
-        addDebit(duration);
+
+        public StudentAccountBuilder balance(final Integer balance) {
+            this.balance = balance;
+            return this;
+        }
+
+        public StudentAccount build() {
+            if (Objects.isNull(student)) {
+                throw new IllegalArgumentException("student ne doit pas être null");
+            }
+            if (Objects.isNull(balance)) {
+                throw new IllegalArgumentException("balance ne doit pas être null");
+            }
+            return new StudentAccount(this);
+        }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        StudentAccount that = (StudentAccount) o;
-
-        if (!student.equals(that.student)) return false;
-        if (!credits.equals(that.credits)) return false;
-        return debits.equals(that.debits);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = student.hashCode();
-        result = 31 * result + credits.hashCode();
-        result = 31 * result + debits.hashCode();
-        return result;
-    }
 }

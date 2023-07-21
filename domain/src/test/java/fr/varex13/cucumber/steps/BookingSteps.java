@@ -1,22 +1,25 @@
-package fr.varex13;
+package fr.varex13.cucumber.steps;
 
-import static fr.varex13.Booking.bookingBuilder;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-
-import java.math.BigInteger;
-import java.util.Set;
-
-import fr.varex13.port.AuthenticationGateway;
-import fr.varex13.port.BookingRepository;
-import fr.varex13.port.CourseRepository;
-import fr.varex13.port.StudentAccountRepository;
-import fr.varex13.usecases.BookCourse;
+import fr.varex13.Booking;
+import fr.varex13.Course;
+import fr.varex13.Student;
+import fr.varex13.inputport.AuthenticationGateway;
+import fr.varex13.outputport.BookingRepository;
+import fr.varex13.outputport.CourseRepository;
+import fr.varex13.outputport.StudentAccountRepository;
+import fr.varex13.inputport.BookService;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigInteger;
+import java.util.Set;
+
+import static fr.varex13.Booking.bookingBuilder;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class BookingSteps {
 
@@ -28,6 +31,8 @@ public class BookingSteps {
     private StudentAccountRepository studentAccountRepository;
     @Autowired
     private AuthenticationGateway authenticationGateway;
+    @Autowired
+    private BookService bookService;
 
     @Before
     public void before() {
@@ -39,18 +44,16 @@ public class BookingSteps {
     @When("je tente de réserver le cours {string} pour {biginteger}")
     public void jeTenteDeRéserverLeCours(final String label, final BigInteger duration) {
         try {
-            final BookCourse bookCourse = new BookCourse(studentAccountRepository, bookingRepository, authenticationGateway);
 
             courseRepository.all().stream().filter(course -> course.getLabel().equals(label)).forEach(course -> {
                 try {
-                    bookCourse.handle(course, duration);
+                    bookService.handle(course, duration);
                     bookingAttempt.setStudent(authenticationGateway.currentStudent().get());
                     bookingAttempt.setCourse(course);
                     bookingAttempt.setDuration(duration);
 
                 } catch (RuntimeException ex) {
                     bookingAttempt.setExcepceptionMessage(ex.getMessage());
-
                 }
             });
         } catch (RuntimeException ex) {

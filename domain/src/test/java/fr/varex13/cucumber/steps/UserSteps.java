@@ -1,12 +1,13 @@
-package fr.varex13;
+package fr.varex13.cucumber.steps;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import java.util.Optional;
 
-import fr.varex13.port.AuthenticationGateway;
-import fr.varex13.port.StudentRepository;
+import fr.varex13.Student;
+import fr.varex13.inputport.AuthenticationGateway;
+import fr.varex13.outputport.StudentRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import org.springframework.beans.factory.annotation.Autowired;
