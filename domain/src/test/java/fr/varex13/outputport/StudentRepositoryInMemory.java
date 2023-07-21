@@ -1,9 +1,9 @@
-package fr.varex13.port;
+package fr.varex13.outputport;
+
+import fr.varex13.Student;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import fr.varex13.Student;
 
 public class StudentRepositoryInMemory implements StudentRepository {
 
@@ -18,4 +18,5 @@ public class StudentRepositoryInMemory implements StudentRepository {
     public Set<Student> all() {
         return students;
     }
+
 }

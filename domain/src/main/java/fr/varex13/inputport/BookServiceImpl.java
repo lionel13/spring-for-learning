@@ -1,22 +1,23 @@
-package fr.varex13.usecases;
-
-import static fr.varex13.Booking.bookingBuilder;
-
-import java.math.BigInteger;
+package fr.varex13.inputport;
 
 import fr.varex13.Booking;
 import fr.varex13.Course;
 import fr.varex13.Student;
-import fr.varex13.port.AuthenticationGateway;
-import fr.varex13.port.BookingRepository;
-import fr.varex13.port.StudentAccountRepository;
+import fr.varex13.outputport.BookingRepository;
+import fr.varex13.outputport.StudentAccountRepository;
 
-public class BookCourse {
+import java.math.BigInteger;
+
+import static fr.varex13.Booking.bookingBuilder;
+
+public class BookServiceImpl implements BookService {
     private final StudentAccountRepository studentAccountRepository;
     private final BookingRepository bookingRepository;
     private final AuthenticationGateway authenticationGateway;
 
-    public BookCourse(final StudentAccountRepository studentAccountRepository, final BookingRepository bookingRepository, final AuthenticationGateway authenticationGateway) {
+    public BookServiceImpl(final StudentAccountRepository studentAccountRepository,
+                           final BookingRepository bookingRepository,
+                           final AuthenticationGateway authenticationGateway) {
         this.studentAccountRepository = studentAccountRepository;
         this.bookingRepository = bookingRepository;
         this.authenticationGateway = authenticationGateway;
@@ -33,6 +34,6 @@ public class BookCourse {
     }
 
     private void chargeCustomer(final Student student, final BigInteger duration) {
-        studentAccountRepository.byId(student.getId()).ifPresent(studentAccount -> studentAccount.charge(duration));
+        studentAccountRepository.removeDebit(student, duration.intValue());
     }
 }

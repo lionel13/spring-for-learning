@@ -1,4 +1,4 @@
-package fr.varex13;
+package fr.varex13.cucumber.defs;
 
 import static fr.varex13.Student.studentBuilder;
 
@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import fr.varex13.port.StudentRepository;
+import fr.varex13.Student;
+import fr.varex13.outputport.StudentRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Given;

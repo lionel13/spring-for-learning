@@ -16,8 +16,8 @@ Feature: Tout les élèves - Réserver un cours
       | 2e7b432d-462b-4b2d-915f-23fe3cadb244 | cours 2 |
 
   Scenario Outline: solde suffisant
-    And je suis authentifié en tant que "<prénom_client>"
-    And le solde de mon compte est de <solde_avant> heures de cours
+    Given je suis authentifié en tant que "<prénom_client>"
+    And le solde initial de mon compte est de <solde_avant> heures de cours
     When je tente de réserver le cours "<label_cours>" pour <nombre_heures>
     Then la réservation est effective
     And le solde de mon compte est de <solde_après> heures de cours
@@ -31,7 +31,7 @@ Feature: Tout les élèves - Réserver un cours
 
   Scenario Outline: solde insuffisant
     Given je suis authentifié en tant que "<prénom_client>"
-    And le solde de mon compte est de <solde_avant> heures de cours
+    And le solde initial de mon compte est de <solde_avant> heures de cours
     When je tente de réserver le cours "<label_cours>" pour <nombre_heures>
     Then la réservation n'est pas effective
     And et une alerte pour insuffisance de solde se lève

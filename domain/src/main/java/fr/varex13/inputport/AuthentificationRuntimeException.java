@@ -1,4 +1,4 @@
-package fr.varex13.usecases;
+package fr.varex13.inputport;
 
 public class AuthentificationRuntimeException extends RuntimeException {
     public AuthentificationRuntimeException() {

@@ -1,4 +1,4 @@
-package fr.varex13.port;
+package fr.varex13.outputport;
 
 import java.util.Set;
 
