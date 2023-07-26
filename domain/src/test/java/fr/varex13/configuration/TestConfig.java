@@ -2,9 +2,9 @@ package fr.varex13.configuration;
 
 import fr.varex13.inputport.AuthenticationGateway;
 import fr.varex13.inputport.AuthenticationGatewayInMemory;
-import fr.varex13.outputport.*;
 import fr.varex13.inputport.BookService;
 import fr.varex13.inputport.BookServiceImpl;
+import fr.varex13.outputport.*;
 import org.springframework.context.annotation.Bean;
 
 public class TestConfig {
@@ -27,6 +27,10 @@ public class TestConfig {
         return new CourseRepositoryInMemory();
     }
 
+    @Bean
+    public WorkshopRepository workshopRepository() {
+        return new WorkshopRepositoryInMemory();
+    }
 
     @Bean
     public BookingRepository bookingRepository() {
