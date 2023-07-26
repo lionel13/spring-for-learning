@@ -4,17 +4,16 @@ import fr.varex13.Booking;
 import fr.varex13.Course;
 import fr.varex13.Student;
 import fr.varex13.inputport.AuthenticationGateway;
+import fr.varex13.inputport.BookService;
 import fr.varex13.outputport.BookingRepository;
 import fr.varex13.outputport.CourseRepository;
 import fr.varex13.outputport.StudentAccountRepository;
-import fr.varex13.inputport.BookService;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigInteger;
 import java.util.Set;
 
 import static fr.varex13.Booking.bookingBuilder;
@@ -41,8 +40,8 @@ public class BookingSteps {
 
     BookingAttempt bookingAttempt = new BookingAttempt();
 
-    @When("je tente de réserver le cours {string} pour {biginteger}")
-    public void jeTenteDeRéserverLeCours(final String label, final BigInteger duration) {
+    @When("je tente de réserver le cours {string} pour {int}")
+    public void jeTenteDeRéserverLeCours(final String label, final Integer duration) {
         try {
 
             courseRepository.all().stream().filter(course -> course.getLabel().equals(label)).forEach(course -> {
@@ -90,7 +89,7 @@ public class BookingSteps {
     private static class BookingAttempt {
         private Student student;
         private Course course;
-        private BigInteger duration;
+        private Integer duration;
 
         private String excepceptionMessage;
 
@@ -102,7 +101,7 @@ public class BookingSteps {
             this.course = course;
         }
 
-        public void setDuration(final BigInteger duration) {
+        public void setDuration(final Integer duration) {
             this.duration = duration;
         }
 

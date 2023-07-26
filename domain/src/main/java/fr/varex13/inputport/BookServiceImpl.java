@@ -6,8 +6,6 @@ import fr.varex13.Student;
 import fr.varex13.outputport.BookingRepository;
 import fr.varex13.outputport.StudentAccountRepository;
 
-import java.math.BigInteger;
-
 import static fr.varex13.Booking.bookingBuilder;
 
 public class BookServiceImpl implements BookService {
@@ -23,7 +21,7 @@ public class BookServiceImpl implements BookService {
         this.authenticationGateway = authenticationGateway;
     }
 
-    public void handle(final Course course, final BigInteger duration) {
+    public void handle(final Course course, final Integer duration) {
         final Student student = authenticationGateway.currentStudent().orElseThrow(AuthentificationRuntimeException::new);
         chargeCustomer(student, duration);
         applyBooking(bookingBuilder().student(student).course(course).duration(duration).build());
@@ -33,7 +31,7 @@ public class BookServiceImpl implements BookService {
         bookingRepository.add(booking);
     }
 
-    private void chargeCustomer(final Student student, final BigInteger duration) {
-        studentAccountRepository.removeDebit(student, duration.intValue());
+    private void chargeCustomer(final Student student, final Integer duration) {
+        studentAccountRepository.removeDebit(student, duration);
     }
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface AccountCreditRepository {
 
-    void add(AccountCredit booking);
+    void add(AccountCredit accountCredit);
 
     Set<AccountCredit> all();
 
