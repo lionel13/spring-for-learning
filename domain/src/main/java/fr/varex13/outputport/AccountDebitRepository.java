@@ -7,10 +7,9 @@ import java.util.Set;
 
 public interface AccountDebitRepository {
 
-    void add(AccountDebit booking);
+    void add(AccountDebit accountDebit);
 
     Set<AccountDebit> all();
-
 
     Set<AccountDebit> byStudent(Student student);
 }

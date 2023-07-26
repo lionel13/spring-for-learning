@@ -2,12 +2,10 @@ package fr.varex13;
 
 import static java.util.Objects.isNull;
 
-import java.math.BigInteger;
-
 public final class Booking {
     private final Student student;
     private final Course course;
-    private final BigInteger duration;
+    private final Integer duration;
 
     private Booking(final BookingBuilder bookingBuilder) {
         this.student = bookingBuilder.student;
@@ -27,14 +25,14 @@ public final class Booking {
         return course;
     }
 
-    public BigInteger getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
     public static class BookingBuilder {
         private Student student;
         private Course course;
-        private BigInteger duration;
+        private Integer duration;
 
         public BookingBuilder student(final Student student) {
             this.student = student;
@@ -46,7 +44,7 @@ public final class Booking {
             return this;
         }
 
-        public BookingBuilder duration(final BigInteger duration) {
+        public BookingBuilder duration(final Integer duration) {
             this.duration = duration;
             return this;
         }

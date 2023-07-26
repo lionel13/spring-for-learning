@@ -1,16 +1,14 @@
 package fr.varex13.cucumber.steps;
 
+import fr.varex13.inputport.AuthenticationGateway;
 import fr.varex13.outputport.AccountCreditRepository;
 import fr.varex13.outputport.AccountDebitRepository;
-import fr.varex13.inputport.AuthenticationGateway;
 import fr.varex13.outputport.StudentAccountRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.math.BigInteger;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -32,28 +30,28 @@ public class StudentAccountSteps {
         accountDebitRepository.all().clear();
     }
 
-    @And("le solde initial de mon compte est de {biginteger} heures de cours")
-    public void leSoldeInitialDeMonCompteEstDeCours(final BigInteger balance) {
-        authenticationGateway.currentStudent().ifPresent(student -> studentAccountRepository.addCredit(student, balance.intValue()));
+    @And("le solde initial de mon compte est de {int} heures de cours")
+    public void leSoldeInitialDeMonCompteEstDeCours(final Integer balance) {
+        authenticationGateway.currentStudent().ifPresent(student -> studentAccountRepository.addCredit(student, balance));
     }
 
-    @And("le solde de mon compte est de {biginteger} heures de cours")
-    public void leSoldeDeMonCompteEstDeCours(final BigInteger balance) {
+    @And("le solde de mon compte est de {int} heures de cours")
+    public void leSoldeDeMonCompteEstDeCours(final Integer balance) {
         authenticationGateway.currentStudent().ifPresent(student -> assertThat(studentAccountRepository.byStudent(student).get().getBalance(), is(balance.intValue())));
     }
 
-    @And("le solde initial de mon compte est de {biginteger} heures de cours V2")
-    public void leSoldeInitialDeMonCompteEstDeCoursV2(final BigInteger balance) {
+    @And("le solde initial de mon compte est de {int} heures de cours V2")
+    public void leSoldeInitialDeMonCompteEstDeCoursV2(final Integer balance) {
         authenticationGateway.currentStudent().ifPresent(student -> studentAccountRepository.addCredit(student, balance.intValue()));
     }
 
-    @And("le solde de mon compte est de {biginteger} heures de cours V2")
-    public void leSoldeDeMonCompteEstDeCoursV2(final BigInteger balance) {
+    @And("le solde de mon compte est de {int} heures de cours V2")
+    public void leSoldeDeMonCompteEstDeCoursV2(final Integer balance) {
         authenticationGateway.currentStudent().ifPresent(student -> assertThat(studentAccountRepository.byStudent(student).get().getBalance(), is(balance)));
     }
 
-    @When("je tente d'ajouter {biginteger} de crédit")
-    public void jeTenteDAjouterNb_heuresDeCrédit(final BigInteger creditToAdd) {
+    @When("je tente d'ajouter {int} de crédit")
+    public void jeTenteDAjouterNb_heuresDeCrédit(final Integer creditToAdd) {
 
         authenticationGateway.currentStudent().ifPresent(student -> {
             studentAccountRepository.addCredit(student, creditToAdd.intValue());
@@ -62,8 +60,8 @@ public class StudentAccountSteps {
 
     private String exceptionMessage;
 
-    @When("je tente d'ajouter {biginteger} de débit")
-    public void jeTenteDAjouterNb_heuresDeDébit(final BigInteger debitToAdd) {
+    @When("je tente d'ajouter {int} de débit")
+    public void jeTenteDAjouterNb_heuresDeDébit(final Integer debitToAdd) {
         try {
             authenticationGateway.currentStudent().ifPresent(student -> studentAccountRepository.removeDebit(student, debitToAdd.intValue()));
         } catch (RuntimeException ex) {
