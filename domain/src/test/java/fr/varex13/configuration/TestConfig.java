@@ -10,11 +10,8 @@ import org.springframework.context.annotation.Bean;
 public class TestConfig {
 
     @Bean
-    public BookService bookService(final StudentAccountRepository studentAccountRepository,
-                                   final BookingRepository bookingRepository,
-                                   final AuthenticationGateway authenticationGateway
-    ) {
-        return new BookServiceImpl(studentAccountRepository, bookingRepository, authenticationGateway);
+    public BookService bookService(final StudentAccountRepository studentAccountRepository, final BookingCourseRepository bookingCourseRepository, final BookingWorkshopRepository bookingWorkshopRepository, final AuthenticationGateway authenticationGateway) {
+        return new BookServiceImpl(studentAccountRepository, bookingCourseRepository, bookingWorkshopRepository, authenticationGateway);
     }
 
     @Bean
@@ -33,8 +30,13 @@ public class TestConfig {
     }
 
     @Bean
-    public BookingRepository bookingRepository() {
-        return new BookingRepositoryInMemory();
+    public BookingCourseRepository bookingCourseRepository() {
+        return new BookingCourseRepositoryInMemory();
+    }
+
+    @Bean
+    public BookingWorkshopRepository bookingWorkshopRepository() {
+        return new BookingWorkshopRepositoryInMemory();
     }
 
     @Bean
@@ -48,9 +50,7 @@ public class TestConfig {
     }
 
     @Bean
-    public StudentAccountRepository studentAccountRepository(
-            final AccountCreditRepository accountCreditRepository,
-            final AccountDebitRepository accountDebitRepository) {
+    public StudentAccountRepository studentAccountRepository(final AccountCreditRepository accountCreditRepository, final AccountDebitRepository accountDebitRepository) {
         return new StudentAccountRepositoryInMemory(accountCreditRepository, accountDebitRepository);
     }
 

@@ -37,12 +37,12 @@ public class StudentAccountSteps {
 
     @And("le solde de mon compte est de {int} heures de cours")
     public void leSoldeDeMonCompteEstDeCours(final Integer balance) {
-        authenticationGateway.currentStudent().ifPresent(student -> assertThat(studentAccountRepository.byStudent(student).get().getBalance(), is(balance.intValue())));
+        authenticationGateway.currentStudent().ifPresent(student -> assertThat(studentAccountRepository.byStudent(student).get().getBalance(), is(balance)));
     }
 
     @And("le solde initial de mon compte est de {int} heures de cours V2")
     public void leSoldeInitialDeMonCompteEstDeCoursV2(final Integer balance) {
-        authenticationGateway.currentStudent().ifPresent(student -> studentAccountRepository.addCredit(student, balance.intValue()));
+        authenticationGateway.currentStudent().ifPresent(student -> studentAccountRepository.addCredit(student, balance));
     }
 
     @And("le solde de mon compte est de {int} heures de cours V2")

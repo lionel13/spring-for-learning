@@ -2,12 +2,12 @@ package fr.varex13;
 
 import static java.util.Objects.isNull;
 
-public final class Booking {
+public final class BookingCourse {
     private final Student student;
     private final Course course;
     private final Integer duration;
 
-    private Booking(final BookingBuilder bookingBuilder) {
+    private BookingCourse(final BookingBuilder bookingBuilder) {
         this.student = bookingBuilder.student;
         this.course = bookingBuilder.course;
         this.duration = bookingBuilder.duration;
@@ -49,7 +49,7 @@ public final class Booking {
             return this;
         }
 
-        public Booking build() {
+        public BookingCourse build() {
             if (isNull(student)) {
                 throw new IllegalArgumentException("student ne doit pas être null");
             }
@@ -59,7 +59,7 @@ public final class Booking {
             if (isNull(duration)) {
                 throw new IllegalArgumentException("duration ne doit pas être null");
             }
-            return new Booking(this);
+            return new BookingCourse(this);
         }
     }
 
@@ -68,11 +68,11 @@ public final class Booking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Booking booking = (Booking) o;
+        BookingCourse bookingCourse = (BookingCourse) o;
 
-        if (!student.equals(booking.student)) return false;
-        if (!course.equals(booking.course)) return false;
-        return duration.equals(booking.duration);
+        if (!student.equals(bookingCourse.student)) return false;
+        if (!course.equals(bookingCourse.course)) return false;
+        return duration.equals(bookingCourse.duration);
     }
 
     @Override
