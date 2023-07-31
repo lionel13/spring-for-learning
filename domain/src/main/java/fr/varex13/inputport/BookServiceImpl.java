@@ -1,37 +1,53 @@
 package fr.varex13.inputport;
 
-import fr.varex13.Booking;
-import fr.varex13.Course;
-import fr.varex13.Student;
-import fr.varex13.outputport.BookingRepository;
+import fr.varex13.*;
+import fr.varex13.outputport.BookingCourseRepository;
+import fr.varex13.outputport.BookingWorkshopRepository;
 import fr.varex13.outputport.StudentAccountRepository;
 
-import static fr.varex13.Booking.bookingBuilder;
+import static fr.varex13.BookingCourse.bookingBuilder;
 
 public class BookServiceImpl implements BookService {
     private final StudentAccountRepository studentAccountRepository;
-    private final BookingRepository bookingRepository;
+    private final BookingCourseRepository bookingCourseRepository;
+    private final BookingWorkshopRepository bookingWorkshopRepository;
     private final AuthenticationGateway authenticationGateway;
 
-    public BookServiceImpl(final StudentAccountRepository studentAccountRepository,
-                           final BookingRepository bookingRepository,
-                           final AuthenticationGateway authenticationGateway) {
+    public BookServiceImpl(final StudentAccountRepository studentAccountRepository, final BookingCourseRepository bookingCourseRepository, final BookingWorkshopRepository bookingWorkshopRepository, final AuthenticationGateway authenticationGateway) {
         this.studentAccountRepository = studentAccountRepository;
-        this.bookingRepository = bookingRepository;
+        this.bookingCourseRepository = bookingCourseRepository;
+        this.bookingWorkshopRepository = bookingWorkshopRepository;
         this.authenticationGateway = authenticationGateway;
     }
 
-    public void handle(final Course course, final Integer duration) {
-        final Student student = authenticationGateway.currentStudent().orElseThrow(AuthentificationRuntimeException::new);
+    @Override
+    public void handleCourse(final Course course, final Integer duration) {
+        final Student student = getStudent();
         chargeCustomer(student, duration);
         applyBooking(bookingBuilder().student(student).course(course).duration(duration).build());
     }
 
-    private void applyBooking(final Booking booking) {
-        bookingRepository.add(booking);
+    @Override
+    public void handleWorkshop(Workshop workshop) {
+        final Student student = getStudent();
+        chargeCustomer(student, workshop.getDuration());
+        applyBooking(BookingWorkshop.bookingWorkshopBuilder().student(student).workshop(workshop).build());
+
+    }
+
+    private void applyBooking(final BookingCourse bookingCourse) {
+        bookingCourseRepository.add(bookingCourse);
+    }
+
+    private void applyBooking(BookingWorkshop bookingWorkshop) {
+        bookingWorkshopRepository.add(bookingWorkshop);
     }
 
     private void chargeCustomer(final Student student, final Integer duration) {
         studentAccountRepository.removeDebit(student, duration);
+    }
+
+    private Student getStudent() {
+        return authenticationGateway.currentStudent().orElseThrow(AuthentificationRuntimeException::new);
     }
 }

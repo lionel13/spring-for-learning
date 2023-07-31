@@ -12,5 +12,45 @@ Feature: Tout les élèves - Réserver un atelier
 
     Given des ateliers existent:
       | id                                   | label     | duration |
-      | c306ad32-3fd3-41a6-9b35-fcf9d6a0be9f | atelier 1 | 2        |
-      | 2e7b432d-462b-4b2d-915f-23fe3cadb244 | atelier 2 | 3        |
+      | c306ad32-3fd3-41a6-9b35-fcf9d6a0be9f | atelier 1 | 3        |
+      | 2e7b432d-462b-4b2d-915f-23fe3cadb244 | atelier 2 | 2        |
+
+  Scenario Outline: solde suffisant
+    Given je suis authentifié en tant que "<prénom_client>"
+    And le solde initial de mon compte est de <solde_avant> heures de cours
+    When je tente de réserver l'atelier "<label_atelier>"
+    Then la réservation de l'atelier est effective
+    And le solde de mon compte est de <solde_après> heures de cours
+    Examples:
+      | prénom_client | solde_avant | solde_après | label_atelier |
+      | Céline        | 10          | 7           | atelier 1     |
+      | Sylva         | 8           | 5           | atelier 1     |
+      | Manon         | 3           | 1           | atelier 2     |
+      | Delphine      | 2           | 0           | atelier 2     |
+      | Delphine      | 4           | 2           | atelier 2     |
+
+  Scenario Outline: solde insuffisant
+    Given je suis authentifié en tant que "<prénom_client>"
+    And le solde initial de mon compte est de <solde_avant> heures de cours
+    When je tente de réserver l'atelier "<label_atelier>"
+    Then la réservation de l'atelier n est pas effective
+    And et une alerte pour insuffisance de solde se lève
+    And le solde de mon compte est de <solde_après> heures de cours
+    Examples:
+      | prénom_client | solde_avant | solde_après | label_atelier |
+      | Sylva         | 0           | 0           | atelier 1     |
+      | Céline        | 1           | 1           | atelier 1     |
+      | Sylva         | 2           | 2           | atelier 1     |
+      | Manon         | 0           | 0           | atelier 2     |
+      | Delphine      | 1           | 1           | atelier 2     |
+
+
+  Scenario Outline: Je ne suis pas authentifié
+    Given je ne suis pas authentifié
+    When je tente de réserver l'atelier "<label_atelier>"
+    Then la réservation de l'atelier n est pas effective
+    And et une alerte pour identification du client impossible se lève
+    Examples:
+      | label_atelier |
+      | atelier 1     |
+      | atelier 2     |

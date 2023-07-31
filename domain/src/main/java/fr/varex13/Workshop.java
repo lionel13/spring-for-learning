@@ -30,7 +30,6 @@ public class Workshop {
         return duration;
     }
 
-
     public static final class WorkshopBuilder {
         private UUID id;
         private String label;
