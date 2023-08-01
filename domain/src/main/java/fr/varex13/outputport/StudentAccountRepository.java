@@ -1,8 +1,8 @@
 package fr.varex13.outputport;
 
 import fr.varex13.SoldeInsuffisantRuntimeExeption;
-import fr.varex13.Student;
-import fr.varex13.StudentAccount;
+import fr.varex13.student.Student;
+import fr.varex13.student.StudentAccount;
 
 import java.util.Optional;
 

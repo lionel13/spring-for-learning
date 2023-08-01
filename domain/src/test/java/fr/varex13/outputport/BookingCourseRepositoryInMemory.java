@@ -3,7 +3,7 @@ package fr.varex13.outputport;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import fr.varex13.BookingCourse;
+import fr.varex13.booking.BookingCourse;
 
 public class BookingCourseRepositoryInMemory implements BookingCourseRepository {
     private final Set<BookingCourse> bookingCourses = new LinkedHashSet<>();

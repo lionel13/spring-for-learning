@@ -1,6 +1,6 @@
 package fr.varex13.outputport;
 
-import fr.varex13.Student;
+import fr.varex13.student.Student;
 
 import java.util.Set;
 
