@@ -1,12 +1,13 @@
 package fr.varex13;
 
+import fr.varex13.student.Student;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import java.util.UUID;
 
-import static fr.varex13.Student.studentBuilder;
+import static fr.varex13.student.Student.studentBuilder;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;

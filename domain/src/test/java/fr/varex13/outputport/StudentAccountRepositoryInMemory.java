@@ -1,12 +1,16 @@
 package fr.varex13.outputport;
 
 import fr.varex13.*;
+import fr.varex13.student.AccountCredit;
+import fr.varex13.student.AccountDebit;
+import fr.varex13.student.Student;
+import fr.varex13.student.StudentAccount;
 
 import java.util.Optional;
 import java.util.Set;
 
-import static fr.varex13.AccountCredit.accountCreditsBuilder;
-import static fr.varex13.AccountDebit.accountDebitBuilder;
+import static fr.varex13.student.AccountCredit.accountCreditsBuilder;
+import static fr.varex13.student.AccountDebit.accountDebitBuilder;
 import static java.time.LocalDateTime.now;
 
 public class StudentAccountRepositoryInMemory implements StudentAccountRepository {

@@ -1,6 +1,6 @@
 package fr.varex13.cucumber.defs;
 
-import fr.varex13.Workshop;
+import fr.varex13.prestation.Workshop;
 import fr.varex13.outputport.WorkshopRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.DataTableType;

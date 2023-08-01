@@ -1,9 +1,13 @@
 package fr.varex13.cucumber.steps;
 
-import fr.varex13.*;
-import fr.varex13.inputport.AuthenticationGateway;
-import fr.varex13.inputport.BookService;
+import fr.varex13.booking.BookingCourse;
+import fr.varex13.booking.BookingWorkshop;
+import fr.varex13.booking.inputport.BookService;
 import fr.varex13.outputport.*;
+import fr.varex13.prestation.Course;
+import fr.varex13.prestation.Workshop;
+import fr.varex13.student.Student;
+import fr.varex13.student.inputport.AuthenticationGateway;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -12,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
-import static fr.varex13.BookingCourse.bookingBuilder;
+import static fr.varex13.booking.BookingCourse.bookingBuilder;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -30,6 +34,8 @@ public class BookingSteps {
     private StudentAccountRepository studentAccountRepository;
     @Autowired
     private AuthenticationGateway authenticationGateway;
+    //    @Autowired
+//    private BookService bookService;
     @Autowired
     private BookService bookService;
 
@@ -39,15 +45,14 @@ public class BookingSteps {
         bookingWorkshopRepository.all().clear();
     }
 
-    BookingAttemptCourses bookingAttemptCourses = new BookingAttemptCourses();
-    BookingAttemptWorkshop bookingAttemptWorkshop = new BookingAttemptWorkshop();
+    private final BookingAttemptCourses bookingAttemptCourses = new BookingAttemptCourses();
+    private final BookingAttemptWorkshop bookingAttemptWorkshop = new BookingAttemptWorkshop();
 
     @When("je tente de réserver le cours {string} pour {int}")
     public void jeTenteDeRéserverLeCours(final String label, final Integer duration) {
         try {
-
             courseRepository.all().stream().filter(course -> course.getLabel().equals(label)).forEach(course -> {
-                bookService.handleCourse(course, duration);
+                bookService.createBooking(course, duration);
                 bookingAttemptCourses.setStudent(authenticationGateway.currentStudent().get());
                 bookingAttemptCourses.setCourse(course);
                 bookingAttemptCourses.setDuration(duration);
@@ -62,7 +67,7 @@ public class BookingSteps {
     public void jeTenteDeRéserverLAtelier(String workshopLabel) {
         try {
             workshopRepository.all().stream().filter(workshop -> workshop.getLabel().equals(workshopLabel)).forEach(workshop -> {
-                bookService.handleWorkshop(workshop);
+                bookService.createBooking(workshop, workshop.getDuration());
                 bookingAttemptWorkshop.setStudent(authenticationGateway.currentStudent().get());
                 bookingAttemptWorkshop.setWorkshop(workshop);
             });

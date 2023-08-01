@@ -1,7 +1,7 @@
 package fr.varex13.cucumber.steps;
 
-import fr.varex13.Student;
-import fr.varex13.inputport.AuthenticationGateway;
+import fr.varex13.student.Student;
+import fr.varex13.student.inputport.AuthenticationGateway;
 import fr.varex13.outputport.StudentRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
