@@ -1,6 +1,7 @@
 package fr.varex13.outputport;
 
 import fr.varex13.student.Student;
+import fr.varex13.student.outputport.StudentRepository;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

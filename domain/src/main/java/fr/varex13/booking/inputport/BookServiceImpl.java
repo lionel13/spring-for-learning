@@ -1,7 +1,7 @@
 package fr.varex13.booking.inputport;
 
 import fr.varex13.booking.BookingContext;
-import fr.varex13.outputport.StudentAccountRepository;
+import fr.varex13.studentaccount.outputport.StudentAccountRepository;
 import fr.varex13.prestation.Prestation;
 import fr.varex13.student.Student;
 import fr.varex13.student.inputport.AuthenticationGateway;

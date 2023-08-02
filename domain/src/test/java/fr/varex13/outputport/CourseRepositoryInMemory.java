@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import fr.varex13.prestation.Course;
+import fr.varex13.prestation.outputport.CourseRepository;
 
 public class CourseRepositoryInMemory implements CourseRepository {
 

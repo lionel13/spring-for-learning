@@ -1,7 +1,8 @@
 package fr.varex13.outputport;
 
-import fr.varex13.student.AccountCredit;
+import fr.varex13.studentaccount.AccountCredit;
 import fr.varex13.student.Student;
+import fr.varex13.studentaccount.outputport.AccountCreditRepository;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import fr.varex13.booking.BookingCourse;
+import fr.varex13.booking.outputport.BookingCourseRepository;
 
 public class BookingCourseRepositoryInMemory implements BookingCourseRepository {
     private final Set<BookingCourse> bookingCourses = new LinkedHashSet<>();

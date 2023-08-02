@@ -1,22 +1,28 @@
-package fr.varex13.student;
+package fr.varex13.studentaccount;
+
+import fr.varex13.student.Student;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public final class AccountCredit {
+public final class AccountDebit {
 
     private final Student student;
     private final Integer quantity;
     private final LocalDateTime creationDate;
 
-    private AccountCredit(final AccountCreditBuilder accountCreditBuilder) {
-        this.quantity = accountCreditBuilder.quantity;
-        this.creationDate = accountCreditBuilder.creationDate;
-        this.student = accountCreditBuilder.student;
+    private AccountDebit(final AccountDebitBuilder accountDebitBuilder) {
+        this.student = accountDebitBuilder.student;
+        this.quantity = accountDebitBuilder.quantity;
+        this.creationDate = accountDebitBuilder.creationDate;
     }
 
-    public static AccountCreditBuilder accountCreditsBuilder() {
-        return new AccountCreditBuilder();
+    public static AccountDebitBuilder accountDebitBuilder() {
+        return new AccountDebitBuilder();
+    }
+
+    public Student getStudent() {
+        return student;
     }
 
     public Integer getQuantity() {
@@ -27,31 +33,27 @@ public final class AccountCredit {
         return creationDate;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public static final class AccountCreditBuilder {
+    public static final class AccountDebitBuilder {
         private Student student;
         private Integer quantity;
         private LocalDateTime creationDate;
 
-        public AccountCreditBuilder student(final Student student) {
+        public AccountDebitBuilder student(final Student student) {
             this.student = student;
             return this;
         }
 
-        public AccountCreditBuilder quantity(final Integer quantity) {
+        public AccountDebitBuilder quantity(final Integer quantity) {
             this.quantity = quantity;
             return this;
         }
 
-        public AccountCreditBuilder creationDate(final LocalDateTime creationDate) {
+        public AccountDebitBuilder creationDate(final LocalDateTime creationDate) {
             this.creationDate = creationDate;
             return this;
         }
 
-        public AccountCredit build() {
+        public AccountDebit build() {
             if (Objects.isNull(student)) {
                 throw new IllegalArgumentException("student ne doit pas être null");
             }
@@ -61,7 +63,7 @@ public final class AccountCredit {
             if (Objects.isNull(creationDate)) {
                 throw new IllegalArgumentException("creationDate ne doit pas être null");
             }
-            return new AccountCredit(this);
+            return new AccountDebit(this);
         }
     }
 
