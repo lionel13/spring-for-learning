@@ -1,50 +1,55 @@
-package fr.varex13;
+package fr.varex13.booking;
+
+import fr.varex13.prestation.Course;
+import fr.varex13.student.Student;
 
 import static java.util.Objects.isNull;
 
-public final class BookingCourse {
+public final class BookingCourse implements Booking {
+
     private final Student student;
-    private final Course course;
+    private final Course prestation;
     private final Integer duration;
 
-    private BookingCourse(final BookingBuilder bookingBuilder) {
-        this.student = bookingBuilder.student;
-        this.course = bookingBuilder.course;
-        this.duration = bookingBuilder.duration;
+    private BookingCourse(final BookingCourseBuilder bookingCourseBuilder) {
+        this.student = bookingCourseBuilder.student;
+        this.prestation = bookingCourseBuilder.course;
+        this.duration = bookingCourseBuilder.duration;
     }
 
-    public static BookingBuilder bookingBuilder() {
-        return new BookingBuilder();
+    public static BookingCourseBuilder bookingBuilder() {
+        return new BookingCourseBuilder();
     }
+
 
     public Student getStudent() {
         return student;
     }
 
-    public Course getCourse() {
-        return course;
+    public Course getPrestation() {
+        return prestation;
     }
 
     public Integer getDuration() {
         return duration;
     }
 
-    public static class BookingBuilder {
+    public static class BookingCourseBuilder {
         private Student student;
         private Course course;
         private Integer duration;
 
-        public BookingBuilder student(final Student student) {
+        public BookingCourseBuilder student(final Student student) {
             this.student = student;
             return this;
         }
 
-        public BookingBuilder course(final Course course) {
+        public BookingCourseBuilder course(final Course course) {
             this.course = course;
             return this;
         }
 
-        public BookingBuilder duration(final Integer duration) {
+        public BookingCourseBuilder duration(final Integer duration) {
             this.duration = duration;
             return this;
         }
@@ -71,14 +76,14 @@ public final class BookingCourse {
         BookingCourse bookingCourse = (BookingCourse) o;
 
         if (!student.equals(bookingCourse.student)) return false;
-        if (!course.equals(bookingCourse.course)) return false;
+        if (!prestation.equals(bookingCourse.prestation)) return false;
         return duration.equals(bookingCourse.duration);
     }
 
     @Override
     public int hashCode() {
         int result = student.hashCode();
-        result = 31 * result + course.hashCode();
+        result = 31 * result + prestation.hashCode();
         result = 31 * result + duration.hashCode();
         return result;
     }

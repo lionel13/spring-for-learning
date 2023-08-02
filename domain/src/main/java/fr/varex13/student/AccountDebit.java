@@ -1,4 +1,4 @@
-package fr.varex13;
+package fr.varex13.student;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -6,7 +6,6 @@ import java.util.Objects;
 public final class AccountDebit {
 
     private final Student student;
-
     private final Integer quantity;
     private final LocalDateTime creationDate;
 
