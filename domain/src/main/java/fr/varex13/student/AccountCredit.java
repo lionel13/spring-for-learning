@@ -1,4 +1,4 @@
-package fr.varex13;
+package fr.varex13.student;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

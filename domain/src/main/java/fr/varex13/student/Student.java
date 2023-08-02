@@ -1,4 +1,4 @@
-package fr.varex13;
+package fr.varex13.student;
 
 import static java.util.Objects.isNull;
 
