@@ -2,7 +2,7 @@ package fr.varex13.cucumber.steps;
 
 import fr.varex13.student.Student;
 import fr.varex13.student.inputport.AuthenticationGateway;
-import fr.varex13.outputport.StudentRepository;
+import fr.varex13.student.outputport.StudentRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package fr.varex13.booking;
 
-import fr.varex13.outputport.BookingCourseRepository;
-import fr.varex13.outputport.BookingWorkshopRepository;
+import fr.varex13.booking.outputport.BookingCourseRepository;
+import fr.varex13.booking.outputport.BookingWorkshopRepository;
 import fr.varex13.prestation.Course;
 import fr.varex13.prestation.Prestation;
 import fr.varex13.prestation.PrestationType;

@@ -1,4 +1,6 @@
-package fr.varex13.student;
+package fr.varex13.studentaccount;
+
+import fr.varex13.student.Student;
 
 import java.util.Objects;
 

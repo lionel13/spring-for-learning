@@ -1,4 +1,4 @@
-package fr.varex13.outputport;
+package fr.varex13.prestation.outputport;
 
 import fr.varex13.prestation.Workshop;
 

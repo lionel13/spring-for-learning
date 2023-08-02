@@ -3,9 +3,17 @@ package fr.varex13.configuration;
 import fr.varex13.booking.inputport.BookService;
 import fr.varex13.booking.inputport.BookServiceImpl;
 import fr.varex13.booking.BookingContext;
+import fr.varex13.booking.outputport.BookingCourseRepository;
+import fr.varex13.booking.outputport.BookingWorkshopRepository;
 import fr.varex13.inputport.AuthenticationGatewayInMemory;
 import fr.varex13.outputport.*;
+import fr.varex13.prestation.outputport.CourseRepository;
+import fr.varex13.prestation.outputport.WorkshopRepository;
 import fr.varex13.student.inputport.AuthenticationGateway;
+import fr.varex13.studentaccount.outputport.AccountCreditRepository;
+import fr.varex13.studentaccount.outputport.AccountDebitRepository;
+import fr.varex13.studentaccount.outputport.StudentAccountRepository;
+import fr.varex13.student.outputport.StudentRepository;
 import org.springframework.context.annotation.Bean;
 
 public class TestConfig {

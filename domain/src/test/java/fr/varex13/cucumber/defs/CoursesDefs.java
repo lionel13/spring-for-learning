@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import fr.varex13.prestation.Course;
-import fr.varex13.outputport.CourseRepository;
+import fr.varex13.prestation.outputport.CourseRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Given;

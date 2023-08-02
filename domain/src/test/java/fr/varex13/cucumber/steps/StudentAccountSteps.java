@@ -1,9 +1,9 @@
 package fr.varex13.cucumber.steps;
 
 import fr.varex13.student.inputport.AuthenticationGateway;
-import fr.varex13.outputport.AccountCreditRepository;
-import fr.varex13.outputport.AccountDebitRepository;
-import fr.varex13.outputport.StudentAccountRepository;
+import fr.varex13.studentaccount.outputport.AccountCreditRepository;
+import fr.varex13.studentaccount.outputport.AccountDebitRepository;
+import fr.varex13.studentaccount.outputport.StudentAccountRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
