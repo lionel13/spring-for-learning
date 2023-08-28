@@ -1,24 +1,30 @@
 package fr.varex13.student;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.UUID;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Entity
+@Table(name = "student")
 public class StudentEntity {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
     private UUID uuid;
     private String firstName;
     private String lastName;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

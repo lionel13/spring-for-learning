@@ -12,6 +12,7 @@ buildNumber.properties
 
 # intellij generated files
 .idea/
+*.iml
 
 # Eclipse m2e generated files
 # Eclipse Core
