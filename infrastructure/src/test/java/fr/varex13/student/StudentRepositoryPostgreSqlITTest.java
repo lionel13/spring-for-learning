@@ -11,10 +11,11 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.Set;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.hasSize;
 
 @Testcontainers
 @SpringBootTest
@@ -24,10 +25,7 @@ class StudentRepositoryPostgreSqlITTest {
     private StudentRepositoryPostgreSql studentRepositoryPostgreSql;
 
     @Container
-    public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:11.1")
-            .withDatabaseName("employees")
-            .withUsername("sa")
-            .withPassword("sa");
+    public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:11.1").withDatabaseName("employees").withUsername("sa").withPassword("sa");
 
     @BeforeAll
     public static void setup() {
@@ -50,7 +48,8 @@ class StudentRepositoryPostgreSqlITTest {
     @Test
     void testSimplePutAndGet() {
         studentRepositoryPostgreSql.add(Student.studentBuilder().id(UUID.randomUUID()).firstName("zaza").lastName("popo").build());
-        assertThat(true, is(true));
+        Set<Student> all = studentRepositoryPostgreSql.all();
+        assertThat(all, hasSize(1));
     }
 
 }

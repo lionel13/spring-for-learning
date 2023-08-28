@@ -4,6 +4,7 @@ import fr.varex13.student.outputport.StudentRepository;
 
 import java.util.Set;
 
+import static fr.varex13.student.StudentEntityMapper.studentEntityToStudent;
 import static fr.varex13.student.StudentEntityMapper.studentToStudentEntity;
 
 public class StudentRepositoryPostgreSql implements StudentRepository {
@@ -21,6 +22,6 @@ public class StudentRepositoryPostgreSql implements StudentRepository {
 
     @Override
     public Set<Student> all() {
-        return null;
+        return studentEntityToStudent(zazaRepository.findAll());
     }
 }
