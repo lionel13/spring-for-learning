@@ -1,55 +1,37 @@
 package fr.varex13.student;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import fr.varex13.AbstractInfrastructureTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 
-@Testcontainers
-@SpringBootTest
-class StudentRepositoryPostgreSqlITTest {
+
+class StudentRepositoryPostgreSqlITTest extends AbstractInfrastructureTest {
 
     @Autowired
     private StudentRepositoryPostgreSql studentRepositoryPostgreSql;
 
-    @Container
-    public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:11.1").withDatabaseName("employees").withUsername("sa").withPassword("sa");
-
-    @BeforeAll
-    public static void setup() {
-        postgreSQLContainer.start();
-    }
-
-    @DynamicPropertySource
-    static void setProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-    }
-
-
-    @AfterAll
-    public static void tearDown() {
-        postgreSQLContainer.stop();
-    }
-
     @Test
     void testSimplePutAndGet() {
-        studentRepositoryPostgreSql.add(Student.studentBuilder().id(UUID.randomUUID()).firstName("zaza").lastName("popo").build());
-        Set<Student> all = studentRepositoryPostgreSql.all();
-        assertThat(all, hasSize(1));
+        final UUID id = UUID.randomUUID();
+        final String firstName = "zaza";
+        final String lastName = "popo";
+        studentRepositoryPostgreSql.add(Student.studentBuilder().id(id).firstName(firstName).lastName(lastName).build());
+        Set<Student> students = studentRepositoryPostgreSql.all();
+
+        Optional<Student> first = students.stream().findFirst();
+        assertThat(first.isPresent(), is(true));
+        Student student = first.get();
+        assertThat(student.getId(), is(id));
+        assertThat(student.getFirstName(), is(firstName));
+        assertThat(student.getLastName(), is(lastName));
+
     }
 
 }
