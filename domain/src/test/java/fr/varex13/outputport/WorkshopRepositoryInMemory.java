@@ -1,6 +1,7 @@
 package fr.varex13.outputport;
 
-import fr.varex13.Workshop;
+import fr.varex13.prestation.Workshop;
+import fr.varex13.prestation.outputport.WorkshopRepository;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
