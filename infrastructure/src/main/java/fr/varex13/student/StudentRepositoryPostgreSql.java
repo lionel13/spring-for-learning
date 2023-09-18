@@ -2,9 +2,10 @@ package fr.varex13.student;
 
 import fr.varex13.student.outputport.StudentRepository;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import static fr.varex13.student.StudentEntityMapper.studentEntityToStudent;
+import static fr.varex13.student.StudentEntityMapper.studentEntitiesToStudents;
 import static fr.varex13.student.StudentEntityMapper.studentToStudentEntity;
 
 public class StudentRepositoryPostgreSql implements StudentRepository {
@@ -22,6 +23,6 @@ public class StudentRepositoryPostgreSql implements StudentRepository {
 
     @Override
     public Set<Student> all() {
-        return studentEntityToStudent(zazaRepository.findAll());
+        return new HashSet<>(studentEntitiesToStudents(zazaRepository.findAll()));
     }
 }
