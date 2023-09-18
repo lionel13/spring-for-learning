@@ -8,11 +8,11 @@ import java.util.Set;
 import static fr.varex13.student.StudentEntityMapper.studentEntitiesToStudents;
 import static fr.varex13.student.StudentEntityMapper.studentToStudentEntity;
 
-public class StudentRepositoryPostgreSql implements StudentRepository {
+public class StudentRepositoryImpl implements StudentRepository {
 
     private final ZazaRepository zazaRepository;
 
-    public StudentRepositoryPostgreSql(ZazaRepository zazaRepository) {
+    public StudentRepositoryImpl(ZazaRepository zazaRepository) {
         this.zazaRepository = zazaRepository;
     }
 

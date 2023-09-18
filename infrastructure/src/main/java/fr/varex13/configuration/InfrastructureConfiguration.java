@@ -1,6 +1,6 @@
 package fr.varex13.configuration;
 
-import fr.varex13.student.StudentRepositoryPostgreSql;
+import fr.varex13.student.StudentRepositoryImpl;
 import fr.varex13.student.ZazaRepository;
 import fr.varex13.student.outputport.StudentRepository;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class InfrastructureConfiguration {
 
     @Bean
-    public StudentRepository studentRepositoryPostgreSql(final ZazaRepository zazaRepository) {
-        return new StudentRepositoryPostgreSql(zazaRepository);
+    public StudentRepository studentRepository(final ZazaRepository zazaRepository) {
+        return new StudentRepositoryImpl(zazaRepository);
     }
 }
