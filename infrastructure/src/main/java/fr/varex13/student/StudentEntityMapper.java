@@ -4,9 +4,9 @@ import java.util.List;
 
 public class StudentEntityMapper {
 
-    private static Mapper<Student, StudentEntity> student = studentEntity -> Student.studentBuilder().id(studentEntity.getUuid()).firstName(studentEntity.getFirstName()).lastName(studentEntity.getLastName()).build();
+    private static final Mapper<Student, StudentEntity> studentEntityToStudent = studentEntity -> Student.studentBuilder().id(studentEntity.getUuid()).firstName(studentEntity.getFirstName()).lastName(studentEntity.getLastName()).build();
 
-    private static Mapper<StudentEntity, Student> studentEntity = student -> {
+    private static final Mapper<StudentEntity, Student> studentToStudentEntity = student -> {
         final StudentEntity studentEntity = new StudentEntity();
         studentEntity.setUuid(student.getId());
         studentEntity.setFirstName(student.getFirstName());
@@ -14,27 +14,27 @@ public class StudentEntityMapper {
         return studentEntity;
     };
 
-    private static MapperList<Student, StudentEntity> students = studentEntities -> studentEntities.stream().map(studentEntity -> student.map(studentEntity)).toList();
+    private static final MapperList<Student, StudentEntity> studentEntitiesToStudents = studentEntities -> studentEntities.stream().map(studentEntityToStudent::map).toList();
 
-    private static MapperList<StudentEntity, Student> studentEntities = students -> students.stream().map(student -> studentEntity.map(student)).toList();
+    private static final MapperList<StudentEntity, Student> studentToStudentEntities = students -> students.stream().map(studentToStudentEntity::map).toList();
 
     private StudentEntityMapper() {
         throw new IllegalStateException("Utility class");
     }
 
     public static StudentEntity studentToStudentEntity(final Student student) {
-        return studentEntity.map(student);
+        return studentToStudentEntity.map(student);
     }
 
     public static Student studentToStudentEntity(final StudentEntity studentEntity) {
-        return student.map(studentEntity);
+        return studentEntityToStudent.map(studentEntity);
     }
 
     public static List<StudentEntity> studentsToStudentEntities(final List<Student> student) {
-        return studentEntities.map(student);
+        return studentToStudentEntities.map(student);
     }
 
     public static List<Student> studentEntitiesToStudents(final List<StudentEntity> studentEntities) {
-        return students.map(studentEntities);
+        return studentEntitiesToStudents.map(studentEntities);
     }
 }
