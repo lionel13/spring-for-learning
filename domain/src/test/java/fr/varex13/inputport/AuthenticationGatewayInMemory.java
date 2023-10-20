@@ -1,8 +1,9 @@
 package fr.varex13.inputport;
 
-import java.util.Optional;
+import fr.varex13.student.Student;
+import fr.varex13.student.inputport.AuthenticationGateway;
 
-import fr.varex13.Student;
+import java.util.Optional;
 
 public class AuthenticationGatewayInMemory implements AuthenticationGateway {
     private Student student;

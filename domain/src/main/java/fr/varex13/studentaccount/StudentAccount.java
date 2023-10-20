@@ -1,11 +1,13 @@
-package fr.varex13;
+package fr.varex13.studentaccount;
+
+import fr.varex13.student.Student;
 
 import java.util.Objects;
 
 public final class StudentAccount {
+
     private final Student student;
     private final Integer balance;
-
 
     private StudentAccount(final StudentAccountBuilder studentAccountBuilder) {
         this.student = studentAccountBuilder.student;

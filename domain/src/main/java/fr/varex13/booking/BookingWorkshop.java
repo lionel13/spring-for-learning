@@ -1,26 +1,35 @@
-package fr.varex13;
+package fr.varex13.booking;
+
+import fr.varex13.prestation.Workshop;
+import fr.varex13.student.Student;
 
 import static java.util.Objects.isNull;
 
-public final class BookingWorkshop {
+public final class BookingWorkshop implements Booking {
+
     private final Student student;
-    private final Workshop workshop;
+    private final Workshop prestation;
 
     private BookingWorkshop(final BookingWorkshopBuilder bookingWorkshopBuilder) {
         this.student = bookingWorkshopBuilder.student;
-        this.workshop = bookingWorkshopBuilder.workshop;
+        this.prestation = bookingWorkshopBuilder.workshop;
     }
 
     public static BookingWorkshopBuilder bookingWorkshopBuilder() {
         return new BookingWorkshopBuilder();
     }
 
+
     public Student getStudent() {
         return student;
     }
 
-    public Workshop getWorkshop() {
-        return workshop;
+    public Workshop getPrestation() {
+        return prestation;
+    }
+
+    public Integer getDuration() {
+        return prestation.getDuration();
     }
 
     public static class BookingWorkshopBuilder {
@@ -56,13 +65,13 @@ public final class BookingWorkshop {
         BookingWorkshop bookingCourse = (BookingWorkshop) o;
 
         if (!student.equals(bookingCourse.student)) return false;
-        return workshop.equals(bookingCourse.workshop);
+        return prestation.equals(bookingCourse.prestation);
     }
 
     @Override
     public int hashCode() {
         int result = student.hashCode();
-        result = 31 * result + workshop.hashCode();
+        result = 31 * result + prestation.hashCode();
         return result;
     }
 }

@@ -1,8 +1,8 @@
-package fr.varex13.inputport;
+package fr.varex13.student.inputport;
 
 import java.util.Optional;
 
-import fr.varex13.Student;
+import fr.varex13.student.Student;
 
 public interface AuthenticationGateway {
 

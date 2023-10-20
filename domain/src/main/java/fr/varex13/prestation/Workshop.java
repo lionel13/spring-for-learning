@@ -1,21 +1,30 @@
-package fr.varex13;
+package fr.varex13.prestation;
 
 import java.util.Objects;
 import java.util.UUID;
 
-public class Workshop {
+import static fr.varex13.prestation.PrestationType.WORKSHOP;
+
+public class Workshop implements Prestation {
+
+    private static final PrestationType PRESTATION_TYPE = WORKSHOP;
     private final UUID id;
     private final String label;
     private final Integer duration;
 
-    private Workshop(final Workshop.WorkshopBuilder workshopBuilder) {
+    private Workshop(final WorkshopBuilder workshopBuilder) {
         this.id = workshopBuilder.id;
         this.label = workshopBuilder.label;
         this.duration = workshopBuilder.duration;
     }
 
-    public static Workshop.WorkshopBuilder workshopBuilder() {
-        return new Workshop.WorkshopBuilder();
+    public static WorkshopBuilder workshopBuilder() {
+        return new WorkshopBuilder();
+    }
+
+    @Override
+    public PrestationType getPrestationType() {
+        return PRESTATION_TYPE;
     }
 
     public UUID getId() {

@@ -1,7 +1,7 @@
-package fr.varex13.outputport;
+package fr.varex13.studentaccount.outputport;
 
-import fr.varex13.AccountDebit;
-import fr.varex13.Student;
+import fr.varex13.studentaccount.AccountDebit;
+import fr.varex13.student.Student;
 
 import java.util.Set;
 

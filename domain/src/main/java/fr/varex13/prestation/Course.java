@@ -1,9 +1,14 @@
-package fr.varex13;
+package fr.varex13.prestation;
 
 import java.util.Objects;
 import java.util.UUID;
 
-public final class Course {
+import static fr.varex13.prestation.PrestationType.COURSE;
+
+public final class Course implements Prestation {
+
+    private static final PrestationType PRESTATION_TYPE = COURSE;
+
     private final UUID id;
     private final String label;
 
@@ -22,6 +27,11 @@ public final class Course {
 
     public String getLabel() {
         return label;
+    }
+
+    @Override
+    public PrestationType getPrestationType() {
+        return PRESTATION_TYPE;
     }
 
     public static final class CourseBuilder {
@@ -69,9 +79,6 @@ public final class Course {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", label='" + label + '\'' +
-                '}';
+        return "Course{" + "id=" + id + ", label='" + label + '\'' + '}';
     }
 }

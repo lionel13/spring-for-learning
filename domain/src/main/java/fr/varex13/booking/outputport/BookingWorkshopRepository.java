@@ -1,6 +1,6 @@
-package fr.varex13.outputport;
+package fr.varex13.booking.outputport;
 
-import fr.varex13.BookingWorkshop;
+import fr.varex13.booking.BookingWorkshop;
 
 import java.util.Set;
 
